@@ -1,9 +1,12 @@
+#include "push_botton.h"
 #include "matrix_display.h"
 #include "obstacle.h"
 #include "chara.h"
 #include "collision.h"
 
 #include <Arduino.h>
+
+#define OBSTACLE_SPEED 6
 
 void draw_game_play()
 {
@@ -49,8 +52,10 @@ void draw_game_play()
 
 void setup()
 {
+    push_botton_setup();
+
     obstacle_setup();
-    obstacle_set_speed(8);
+    obstacle_set_speed(OBSTACLE_SPEED);
 
     chara_setup();
 
@@ -63,14 +68,14 @@ void loop()
 {
     obstacle_process(100);
 
-    chara_process(30);
+    chara_process(50);
 
     draw_game_play();
 
     if(collision_check() == 1)
     {
         obstacle_setup();
-        obstacle_set_speed(8);
+        obstacle_set_speed(OBSTACLE_SPEED);
         chara_setup();
     }
 
